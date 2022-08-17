@@ -98,16 +98,16 @@ class HealthAnalysisList(APIView):
         letters = string.ascii_lowercase
         randoms = ''.join(random.choice(letters) for i in range(10))
         ndvi_image = rasterio.open(
-            'media/healthanalysis/' + randoms+'.tif', 'w', driver='GTiff', height=500, width=500, count=1, dtype='float32', crs='EPSG:4326', transform=rasterio.transform.from_bounds(*box2, 500, 500))
+            randoms+'.tif', 'w', driver='GTiff', height=500, width=500, count=1, dtype='float32', crs='EPSG:4326', transform=rasterio.transform.from_bounds(*box2, 500, 500))
         ndvi_image.write(image, 1)
 
         ndvi_image.close()
 
         cloudinary.uploader.upload(
-            'media/healthanalysis/'+randoms+'.tif', public_id=randoms, overwrite=True)
+            randoms+'.tif', public_id=randoms, overwrite=True)
         data = cloudinary.api.resource(randoms)
         file_path = data.get('url')
-        file_paths = 'media/healthanalysis/' + randoms+'.tif'
+        file_paths = randoms+'.tif'
         os.remove(file_paths)
 
         serializer = HealthAnalysisSerializer(
