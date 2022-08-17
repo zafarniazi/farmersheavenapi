@@ -24,6 +24,12 @@ class UserRegistrationView(APIView):
     renderer_classes = [UserRenderer]
     def post(self, request):
         serializers = UserRegistrationSerializer(data=request.data)
+        email = request.data.get('email')
+        name = request.data.get('name')
+        password = request.data.get('password')
+        password2 = request.data.get('password2')
+        if(password != password2):
+            return Response({"error": "Passwords must match"}, status=status.HTTP_400_BAD_REQUEST)
         if serializers.is_valid(raise_exception=True):
            User = serializers.save()
            token = get_tokens_for_user(User)
