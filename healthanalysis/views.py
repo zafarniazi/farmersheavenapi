@@ -23,6 +23,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from cloudinary.templatetags import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import string
+import random
 
 
 class HealthAnalysisList(APIView):
@@ -93,16 +95,20 @@ class HealthAnalysisList(APIView):
         # for filename in filenames:
         #  print(os.path.join(folder, filename))
         image = response[0]
+        letters = string.ascii_lowercase
+        randoms = ''.join(random.choice(letters) for i in range(10))
         ndvi_image = rasterio.open(
-            'media/healthanalysis/abc.tif', 'w', driver='GTiff', height=500, width=500, count=1, dtype='float32', crs='EPSG:4326', transform=rasterio.transform.from_bounds(*box2, 500, 500))
+            'media/healthanalysis/' + randoms+'.tif', 'w', driver='GTiff', height=500, width=500, count=1, dtype='float32', crs='EPSG:4326', transform=rasterio.transform.from_bounds(*box2, 500, 500))
         ndvi_image.write(image, 1)
 
         ndvi_image.close()
-        print(file_path)
+
         cloudinary.uploader.upload(
-            'media/healthanalysis/abc.tif', public_id='abc', overwrite=True)
-        data = cloudinary.api.resource('abc')
+            'media/healthanalysis/'+randoms+'.tif', public_id=randoms, overwrite=True)
+        data = cloudinary.api.resource(randoms)
         file_path = data.get('url')
+        file_paths = 'media/healthanalysis/' + randoms+'.tif'
+        os.remove(file_paths)
 
         serializer = HealthAnalysisSerializer(
             data={'name': name, 'bbox': box2, 'coordinates': coordinates2, 'path': file_path, 'user': user})
