@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -44,8 +45,32 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-]
 
+
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+    "http://farmersapi.herokuapp.com",
+]
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 ROOT_URLCONF = 'farmersheaven.urls'
 
 TEMPLATES = [
@@ -70,23 +95,23 @@ WSGI_APPLICATION = 'farmersheaven.wsgi.application'
 # Database
 # https: // docs.djangoproject.com/en/4.0/ref/settings/  # databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'da6fj43uq61e5e',
-        'USER': 'fbmorhqsnnjyey',
-        'PASSWORD': '226e223b1313bcbb4fa27b6a850a3930a1338615bb7af0f700677b05bc7ee8a2',
-        'HOST': 'ec2-44-195-100-240.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'da6fj43uq61e5e',
+#         'USER': 'fbmorhqsnnjyey',
+#         'PASSWORD': '226e223b1313bcbb4fa27b6a850a3930a1338615bb7af0f700677b05bc7ee8a2',
+#         'HOST': 'ec2-44-195-100-240.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

@@ -22,6 +22,8 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.parsers import MultiPartParser, FormParser
 from cloudinary.templatetags import cloudinary
 import cloudinary.uploader
+import cloudinary.api
+
 
 class HealthAnalysisList(APIView):
 
@@ -92,14 +94,16 @@ class HealthAnalysisList(APIView):
         #  print(os.path.join(folder, filename))
         image = response[0]
         ndvi_image = rasterio.open(
-            cloudinary.uploader.upload('media/healthanalysis/abc.tif'), 'w', driver='GTiff', height=500, width=500, count=1, dtype='float32', crs='EPSG:4326', transform=rasterio.transform.from_bounds(*box2, 500, 500))
+            'media/healthanalysis/abc.tif', 'w', driver='GTiff', height=500, width=500, count=1, dtype='float32', crs='EPSG:4326', transform=rasterio.transform.from_bounds(*box2, 500, 500))
         ndvi_image.write(image, 1)
 
         ndvi_image.close()
-        file_path = 'http://127.0.0.1:8000/media/healthanalysis/abc.tif'
         print(file_path)
+        cloudinary.uploader.upload(
+            'media/healthanalysis/abc.tif', public_id='abc', overwrite=True)
+        data = cloudinary.api.resource('abc')
+        file_path = data.get('url')
 
-        print(ndvi_image)
         serializer = HealthAnalysisSerializer(
             data={'name': name, 'bbox': box2, 'coordinates': coordinates2, 'path': file_path, 'user': user})
         if serializer.is_valid():
