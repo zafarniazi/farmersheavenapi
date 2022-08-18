@@ -32,11 +32,12 @@ class HealthAnalysisList(APIView):
     """
     List all healthanalysis, or create a new healthanalysis.
     """
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         healthanalysis = HealthAnalysis.objects.all()
-        serializer = HealthAnalysisSerializer(healthanalysis, many=True)
+        userhealth = HealthAnalysis.objects.filter(user=request.user)
+        serializer = HealthAnalysisSerializer(userhealth, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -91,9 +92,6 @@ class HealthAnalysisList(APIView):
             config=config
         )
         response = request.get_data()
-        # for folder, _, filenames in os.walk(request.data_folder):
-        # for filename in filenames:
-        #  print(os.path.join(folder, filename))
         image = response[0]
         letters = string.ascii_lowercase
         randoms = ''.join(random.choice(letters) for i in range(10))
@@ -122,7 +120,7 @@ class HealthAnalysisDetail(APIView):
     """
     Retrieve, update or delete a healthanalysis instance.
     """
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_object(self, pk):
         try:
@@ -132,8 +130,11 @@ class HealthAnalysisDetail(APIView):
 
     def get(self, request, pk, format=None):
         healthanalysis = self.get_object(pk)
-        serializer = HealthAnalysisSerializer(healthanalysis)
-        return Response(serializer.data)
+        if healthanalysis.user == request.user:
+            serializer = HealthAnalysisSerializer(healthanalysis)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'You are not authorized to view this data'})
 
     def put(self, request, pk, format=None):
         healthanalysis = self.get_object(pk)
