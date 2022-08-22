@@ -3,6 +3,7 @@ from pathlib import Path
 import django_heroku
 import os
 import cloudinary
+from django.utils.translation import gettext_lazy as _
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -150,6 +151,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+STATIC_ROOT = str(BASE_DIR / 'static')
 MEDIA_ROOT = str(BASE_DIR / 'media')
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -214,6 +219,35 @@ CLOUDINARY_STORAGE = {
 cloudinary.config(cloud_name='dqf32mxmv',
                   api_key='691186256383774',
                   api_secret='Ioxu7fOvxw602qUxPVyIsJTKsGA')
+
+MATERIAL_ADMIN_SITE = {
+    'HEADER':  _('Farmers Heaven'),  # Admin site header
+    'TITLE':  _('Farmers Heaven'),  # Admin site title
+    # Admin site favicon (path to static should be specified)
+    'FAVICON':  'banner.jpeg',
+    # Admin site main color, css color should be specified
+    'MAIN_BG_COLOR':  'orange',
+    # Admin site main hover color, css color should be specified
+    'MAIN_HOVER_COLOR':  'black',
+    # Admin site profile picture (path to static should be specified)
+    'PROFILE_PICTURE':  'farmer-logo.png',
+    # Admin site profile background (path to static should be specified)
+    #'PROFILE_BG':  'banner.jpeg',
+    # Admin site logo on login page (path to static should be specified)
+    'LOGIN_LOGO':  'farmer-logo.png',
+    # Admin site background on login/logout pages (path to static should be specified)
+    'LOGOUT_BG':  'banner.jpeg',
+    'SHOW_THEMES':  True,  # Show default admin themes button
+    'TRAY_REVERSE': True,  # Hide object-tools and additional-submit-line by default
+    'NAVBAR_REVERSE': True,  # Hide side navbar by default
+    'SHOW_COUNTS': True,  # Show instances counts for each model
+    # 'APP_ICONS': {  # Set icons for applications(lowercase), including 3rd party apps, {'application_name': 'material_icon_name', ...}
+    #     'sites': 'send',
+    # },
+    'MODEL_ICONS': {  # Set icons for models(lowercase), including 3rd party models, {'model_name': 'material_icon_name', ...}
+        'blog': 'contact_mail',
+    }
+}
 
 
 AUTH_USER_MODEL = 'account.User'
