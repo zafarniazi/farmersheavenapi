@@ -32,7 +32,7 @@ class HealthAnalysisList(APIView):
     """
     List all healthanalysis, or create a new healthanalysis.
     """
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         healthanalysis = HealthAnalysis.objects.all()
@@ -100,7 +100,7 @@ class HealthAnalysisList(APIView):
         letters = string.ascii_lowercase
         randoms = ''.join(random.choice(letters) for i in range(10))
         ndvi_image = rasterio.open(
-            randoms+'.tif', 'w', driver='GTiff', count=1, dtype='float32', crs='EPSG:4326', transform=rasterio.transform.from_bounds(*box2, 500, 500))
+            randoms+'.tif', 'w', driver='GTiff', height=500, width=500, count=1, dtype='float32', crs='EPSG:4326', transform=rasterio.transform.from_bounds(*box2, 500, 500))
         ndvi_image.write(image, 1)
 
         ndvi_image.close()
