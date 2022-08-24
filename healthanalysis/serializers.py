@@ -11,4 +11,5 @@ class HealthAnalysisSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HealthAnalysis
-        fields = ('id', 'name', 'bbox', 'coordinates', 'path', 'user')
+        fields = ('id', 'name', 'bbox', 'coordinates', 'path',
+                  'min_value', 'max_value', 'mean_value', 'user')

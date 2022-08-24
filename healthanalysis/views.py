@@ -93,6 +93,10 @@ class HealthAnalysisList(APIView):
         )
         response = request.get_data()
         image = response[0]
+        output = np.nan_to_num(image)
+        max_value = np.nanmax(output)
+        min_value = np.nanmin(output)
+        mean_value = np.nanmean(output)
         letters = string.ascii_lowercase
         randoms = ''.join(random.choice(letters) for i in range(10))
         ndvi_image = rasterio.open(
@@ -109,7 +113,7 @@ class HealthAnalysisList(APIView):
         os.remove(file_paths)
 
         serializer = HealthAnalysisSerializer(
-            data={'name': name, 'bbox': box2, 'coordinates': coordinates2, 'path': file_path, 'user': user})
+            data={'name': name, 'bbox': box2, 'coordinates': coordinates2, 'path': file_path, 'min_value': min_value, 'max_value': max_value, 'mean_value': mean_value, 'user': user})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

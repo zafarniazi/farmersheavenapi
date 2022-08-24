@@ -13,6 +13,9 @@ class HealthAnalysis(models.Model):
     bbox = models.JSONField()
     coordinates = models.JSONField()
     path = models.CharField(max_length=400)
+    min_value = models.FloatField()
+    max_value = models.FloatField()
+    mean_value = models.FloatField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

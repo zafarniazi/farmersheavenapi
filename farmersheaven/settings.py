@@ -214,6 +214,7 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dqf32mxmv',
     'API_KEY': '691186256383774',
     'API_SECRET': 'Ioxu7fOvxw602qUxPVyIsJTKsGA'
+
 }
 
 cloudinary.config(cloud_name='dqf32mxmv',
