@@ -110,10 +110,10 @@ WSGI_APPLICATION = 'farmersheaven.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'da6fj43uq61e5e',
-        'USER': 'fbmorhqsnnjyey',
-        'PASSWORD': '226e223b1313bcbb4fa27b6a850a3930a1338615bb7af0f700677b05bc7ee8a2',
-        'HOST': 'ec2-44-195-100-240.compute-1.amazonaws.com',
+        'NAME': 'dfmhcv8kd5qc6r',
+        'USER': 'yfwusdoiavjmko',
+        'PASSWORD': '11e657c964b6c18ba24d4b397bc08c2645753cbb698e148a92b5092cb51c550c',
+        'HOST': 'ec2-52-204-195-41.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
