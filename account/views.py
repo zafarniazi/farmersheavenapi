@@ -49,8 +49,10 @@ class LoginView(APIView):
          password = request.data.get('password')
          user = authenticate(request, email=email, password=password)
         if user is not None:
+         print(user.id)
+         id_user = user.id
          token = get_tokens_for_user(user)
-         return Response({'token': token, 'message': 'Login successful'}, status=status.HTTP_200_OK)
+         return Response({'token': token, 'message': 'Login successful', 'id_user': id_user}, status=status.HTTP_200_OK)
         else:
          return Response({'message': 'UserName or password incorrect'}, status=status.HTTP_404_NOT_FOUND)
 
