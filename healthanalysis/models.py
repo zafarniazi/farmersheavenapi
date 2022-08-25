@@ -1,5 +1,6 @@
 from django.db import models
 from account.models import User
+from django.conf import settings
 
 
 # Create your models here.
@@ -13,6 +14,8 @@ class HealthAnalysis(models.Model):
     bbox = models.JSONField()
     coordinates = models.JSONField()
     path = models.CharField(max_length=400)
+    time_from = models.DateField()
+    time_to = models.DateField()
     min_value = models.FloatField()
     max_value = models.FloatField()
     mean_value = models.FloatField()

@@ -32,7 +32,7 @@ class HealthAnalysisList(APIView):
     """
     List all healthanalysis, or create a new healthanalysis.
     """
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         healthanalysis = HealthAnalysis.objects.all()
@@ -44,6 +44,8 @@ class HealthAnalysisList(APIView):
         name = request.data['name']
         box2 = request.data['bbox']
         coordinates2 = request.data['coordinates']
+        time_from = request.data['time_from']
+        time_to = request.data['time_to']
         user = request.data['user']
         config = SHConfig()
         config.sh_client_id = 'ab1ffd68-997e-43ed-b861-abddd6786d80'
@@ -79,6 +81,7 @@ class HealthAnalysisList(APIView):
             input_data=[
                 SentinelHubRequest.input_data(
                     data_collection=DataCollection.SENTINEL2_L2A,
+                    time_interval=(time_from,time_to)
 
 
                 ),
@@ -111,9 +114,10 @@ class HealthAnalysisList(APIView):
         file_path = data.get('url')
         file_paths = randoms+'.tif'
         os.remove(file_paths)
+        print(time_to)
 
         serializer = HealthAnalysisSerializer(
-            data={'name': name, 'bbox': box2, 'coordinates': coordinates2, 'path': file_path, 'min_value': min_value, 'max_value': max_value, 'mean_value': mean_value, 'user': user})
+            data={'name': name, 'bbox': box2, 'coordinates': coordinates2,  'path': file_path, 'time_from': time_from, "time_to": time_to, 'min_value': min_value, 'max_value': max_value, 'mean_value': mean_value, 'user': user})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -124,7 +128,7 @@ class HealthAnalysisDetail(APIView):
     """
     Retrieve, update or delete a healthanalysis instance.
     """
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 
     def get_object(self, pk):
         try:

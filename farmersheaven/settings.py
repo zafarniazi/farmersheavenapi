@@ -22,7 +22,7 @@ INSTALLED_APPS = [
 
     'material',
     'material.admin',
-    #'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'corsheaders',
+
 
 ]
 
@@ -99,23 +100,23 @@ WSGI_APPLICATION = 'farmersheaven.wsgi.application'
 # Database
 # https: // docs.djangoproject.com/en/4.0/ref/settings/  # databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'da6fj43uq61e5e',
-        'USER': 'fbmorhqsnnjyey',
-        'PASSWORD': '226e223b1313bcbb4fa27b6a850a3930a1338615bb7af0f700677b05bc7ee8a2',
-        'HOST': 'ec2-44-195-100-240.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'da6fj43uq61e5e',
+#         'USER': 'fbmorhqsnnjyey',
+#         'PASSWORD': '226e223b1313bcbb4fa27b6a850a3930a1338615bb7af0f700677b05bc7ee8a2',
+#         'HOST': 'ec2-44-195-100-240.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -176,7 +177,6 @@ REST_FRAMEWORK = {
 
 }
 
-
 # Django project settings.py
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
@@ -225,7 +225,7 @@ MATERIAL_ADMIN_SITE = {
     'HEADER':  _('Farmers Heaven'),  # Admin site header
     'TITLE':  _('Farmers Heaven'),  # Admin site title
     # Admin site favicon (path to static should be specified)
-    'FAVICON':  'banner.jpeg',
+    'FAVICON':  'farmer-logo.png',
     # Admin site main color, css color should be specified
     'MAIN_BG_COLOR':  'orange',
     # Admin site main hover color, css color should be specified
@@ -233,7 +233,7 @@ MATERIAL_ADMIN_SITE = {
     # Admin site profile picture (path to static should be specified)
     'PROFILE_PICTURE':  'farmer-logo.png',
     # Admin site profile background (path to static should be specified)
-    #'PROFILE_BG':  'banner.jpeg',
+    # 'PROFILE_BG':  'banner.jpeg',
     # Admin site logo on login page (path to static should be specified)
     'LOGIN_LOGO':  'farmer-logo.png',
     # Admin site background on login/logout pages (path to static should be specified)
@@ -249,6 +249,7 @@ MATERIAL_ADMIN_SITE = {
         'blog': 'contact_mail',
     }
 }
+
 
 
 AUTH_USER_MODEL = 'account.User'
