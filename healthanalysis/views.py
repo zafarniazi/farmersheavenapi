@@ -36,6 +36,7 @@ class HealthAnalysisList(APIView):
 
     def get(self, request, format=None):
         healthanalysis = HealthAnalysis.objects.all()
+
         userhealth = HealthAnalysis.objects.filter(user=request.user)
         serializer = HealthAnalysisSerializer(userhealth, many=True)
         return Response(serializer.data)

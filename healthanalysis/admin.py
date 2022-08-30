@@ -8,4 +8,7 @@ from django.contrib.admin import ModelAdmin, register
 
 @register(HealthAnalysis)
 class HealthAnalysisAdmin(ModelAdmin):
-    list_display = ('name', 'path', 'user')
+    list_display = ['name', 'user',
+                    'min_value', 'max_value', 'mean_value', 'time_from', 'time_to']
+    list_filter = ['user', 'name', 'min_value',
+                   'max_value', 'mean_value', 'time_from', 'time_to']

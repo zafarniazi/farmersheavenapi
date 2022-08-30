@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from account.serializers import UserRegistrationSerializer
+from account.serializers import UserChangePasswordSerializer
 from account.serializers import UserLoginSerializer
 from account.serializers import profileSerializer
 from django.contrib.auth import authenticate
@@ -63,3 +64,14 @@ class profile_view(APIView):
         user = request.user
         serializer = profileSerializer(user)
         return Response(serializer.data)
+
+
+class UserChangePasswordView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        serializers = UserChangePasswordSerializer(
+            data=request.data, context={'user': request.user})
+        if serializers.is_valid(raise_exception=True):
+            return Response({'msg': 'change password successful'}, status=200)
+        return Response(serializers.errors, status=staus.HTTP_400_BAD_REQUEST)
