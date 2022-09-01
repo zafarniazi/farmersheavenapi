@@ -72,6 +72,37 @@ class HealthAnalysisList(APIView):
         }
         """
 
+        # var startDate = '1960-01-01';
+        # var endDate = '2020-12-31';
+
+        # var images = modis.filter(ee.Filter.date(startDate,endDate));
+        # print(images);
+
+        # var scaling = function(image){
+
+        #     var scaled = image.select('NDVI').divide(10000);
+        #     return scaled.copyProperties(image, ['system:index', 'system:time_start'])
+
+        # }
+
+        # var scaled_ndvi = images.map(scaling);
+
+        # print(scaled_ndvi);
+
+        # var nd = scaled_ndvi.first();
+
+        # var mod_im = images.filter(ee.Filter.eq('system:index','2020_01_01')).first();
+        # Map.addLayer(mod_im,{bands:['sur_refl_b02','sur_refl_b01','sur_refl_b03'], min:0,max:4000}, 'FCC');
+        # Map.addLayer(nd,{min:0,max:1,palette:['white','Green']},'NDVI');
+
+        # var chart = ui.Chart.image.seriesByRegion({
+        #   imageCollection:scaled_ndvi,
+        #   regions:roi,
+        #   reducer: ee.Reducer.mean(),
+        #   scale:250,
+
+        # });
+        # print(chart);
         bbox = BBox(bbox=box2, crs=CRS.WGS84)
         geometry = Geometry(
             geometry={"type": "Polygon", "coordinates": coordinates2}, crs=CRS.WGS84)
@@ -82,7 +113,7 @@ class HealthAnalysisList(APIView):
             input_data=[
                 SentinelHubRequest.input_data(
                     data_collection=DataCollection.SENTINEL2_L2A,
-                    time_interval=(time_from,time_to)
+                    time_interval=(time_from, time_to)
 
 
                 ),
