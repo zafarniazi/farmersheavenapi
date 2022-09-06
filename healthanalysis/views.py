@@ -12,6 +12,7 @@ from rest_framework import status
 from healthanalysis.models import HealthAnalysis
 from account.models import User
 from healthanalysis.serializers import HealthAnalysisSerializer
+from healthanalysis.serializers import YieldPredictionSerializer
 import re
 import pdb
 import rasterio
@@ -25,6 +26,14 @@ import cloudinary.uploader
 import cloudinary.api
 import string
 import random
+import pickle
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.svm import LinearSVR
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import SGDRegressor
+from sklearn.metrics import mean_squared_error
 
 
 class HealthAnalysisList(APIView):
@@ -189,3 +198,31 @@ class HealthAnalysisDetail(APIView):
         healthanalysis = self.get_object(pk)
         healthanalysis.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class YieldPredictionView(APIView):
+    def post(self, request, format=None):
+
+        wheat_area = request.data['wheat_area']
+        nov16 = request.data['nov16']
+        dec2 = request.data['dec2']
+        dec18 = request.data['dec18']
+        feb18 = request.data['feb18']
+        march5 = request.data['march5']
+        march21 = request.data['march21']
+        april6 = request.data['april6']
+        april22 = request.data['april22']
+
+        serializers = YieldPredictionSerializer(
+            data={'wheat_area': wheat_area, 'nov16': nov16, 'dec2': dec2, 'dec18': dec18, 'feb18': feb18, 'march5': march5, 'march21': march21, 'april6': april6, 'april22': april22})
+        if serializers.is_valid(raise_exception=True):
+            df_dict = {'18 febs': [feb18], '5 marchs': [march5], '21 marchs': [march21], '6 aprils': [april6], '22aprils': [
+                april22], '16 novs': [nov16], '2decs': [dec2], '18 decs': [dec18], 'WHEAT AREA (1000 ha)': [wheat_area]}
+
+            user_input = pd.DataFrame(df_dict, index=[0])
+            model = pickle.load(
+                open('healthanalysis/rf_trained_model.pkl', 'rb'))
+            # Make a Prediction on Unseen Data
+            predicted_wheat_yield = model.predict(user_input)
+            return Response(predicted_wheat_yield, status=200)
+        return Response(serializers.errors, status=staus.HTTP_400_BAD_REQUEST)
