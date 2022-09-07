@@ -19,6 +19,7 @@ class HealthAnalysis(models.Model):
     min_value = models.FloatField()
     max_value = models.FloatField()
     mean_value = models.FloatField()
+    area = models.FloatField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
