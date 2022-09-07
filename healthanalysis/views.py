@@ -56,8 +56,8 @@ class HealthAnalysisList(APIView):
         coordinates2 = request.data['coordinates']
         time_from = request.data['time_from']
         time_to = request.data['time_to']
-        area = request.data['area']
         user = request.data['user']
+        yield_area = request.data['yield_area']
         config = SHConfig()
         config.sh_client_id = 'ab1ffd68-997e-43ed-b861-abddd6786d80'
         config.sh_client_secret = 'b2Kv#B~4A4p%w-a?Rt_~~8Yf.fFEy//OeG5}g6Bx'
@@ -157,9 +157,8 @@ class HealthAnalysisList(APIView):
         file_paths = randoms+'.tif'
         os.remove(file_paths)
         print(time_to)
-
         serializer = HealthAnalysisSerializer(
-            data={'name': name, 'bbox': box2, 'coordinates': coordinates2,  'path': file_path, 'time_from': time_from, "time_to": time_to, 'min_value': min_value, 'max_value': max_value, 'mean_value': mean_value, 'area': area, 'user': user})
+            data={'name': name, 'bbox': box2, 'coordinates': coordinates2,  'path': file_path, 'time_from': time_from, "time_to": time_to, 'min_value': min_value, 'max_value': max_value, 'mean_value': mean_value, 'yield_area': yield_area, 'user': user})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

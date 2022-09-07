@@ -12,7 +12,7 @@ class HealthAnalysisSerializer(serializers.ModelSerializer):
     class Meta:
         model = HealthAnalysis
         fields = ('id', 'name', 'bbox', 'coordinates', 'path', 'time_from', 'time_to',
-                  'min_value', 'max_value', 'mean_value', 'area', 'user')
+                  'min_value', 'max_value', 'mean_value', 'yield_area', 'user')
 
 
 class YieldPredictionSerializer(serializers.Serializer):
