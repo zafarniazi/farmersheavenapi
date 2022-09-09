@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'healthanalysis',
     'rest_framework',
     'blog',
+    'contactus',
     'cloudinary',
     'cloudinary_storage',
     'corsheaders',

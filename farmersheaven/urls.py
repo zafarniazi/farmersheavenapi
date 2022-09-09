@@ -40,7 +40,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/users/', include('account.urls')),
     path('api/healthanalysis/', include('healthanalysis.urls')),
-    path('api/blog/', include('blog.urls'))
+    path('api/blog/', include('blog.urls')),
+    path('api/contactus/', include('contactus.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
