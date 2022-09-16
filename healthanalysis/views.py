@@ -59,8 +59,8 @@ class HealthAnalysisList(APIView):
         user = request.data['user']
         yield_area = request.data['yield_area']
         config = SHConfig()
-        config.sh_client_id = 'ab1ffd68-997e-43ed-b861-abddd6786d80'
-        config.sh_client_secret = 'b2Kv#B~4A4p%w-a?Rt_~~8Yf.fFEy//OeG5}g6Bx'
+        config.sh_client_id = '0f14ca3a-cbe1-4ebe-b223-7eb539d840e7'
+        config.sh_client_secret = 'zvPS{H^S~/kg<fb]QA8)-b<yypRHS<ygJXPJ(*3-'
         evalscript = """
         //VERSION=3
         function setup() {
