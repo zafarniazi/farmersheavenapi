@@ -54,11 +54,14 @@ MIDDLEWARE = [
 
 
 ]
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
-    "http://farmersapi.herokuapp.com",
-    "http://farmerheaven.herokuapp.com",
-]
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOWED_ORIGINS = [
+#     "http://farmerheaven.herokuapp.com",
+#     "http://localhost:4200",
+#     "http://farmersapi.herokuapp.com",
+
+# ]
+ALLOWED_HOSTS = ['*']
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
