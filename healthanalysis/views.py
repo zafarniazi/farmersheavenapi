@@ -203,23 +203,33 @@ class HealthAnalysisDetail(APIView):
 class YieldPredictionView(APIView):
     def post(self, request, format=None):
 
-        wheat_area = request.data['wheat_area']
-        nov16 = request.data['nov16']
-        dec2 = request.data['dec2']
-        dec18 = request.data['dec18']
-        feb18 = request.data['feb18']
-        march5 = request.data['march5']
-        march21 = request.data['march21']
-        april6 = request.data['april6']
-        april22 = request.data['april22']
+        Area = request.data['Area']
+        Nitrogen = request.data['Nitrogen']
+        Phosphorus = request.data['Phosphorus']
+        Pottasium = request.data['Pottasium']
+        pH = request.data['pH']
+        NDVI = request.data['NDVI']
+        maxtemp = request.data['maxtemp']
+        mintemp = request.data['mintemp']
+        avgtemp = request.data['avgtemp']
+        relativehumidity = request.data['relativehumidity']
+        dewpoints = request.data['dewpoints']
+        minwindspeed = request.data['minwindspeed']
+        maxwindspeed = request.data['maxwindspeed']
+        cloudcoverage = request.data['cloudcoverage']
+
+
 
         serializers = YieldPredictionSerializer(
-            data={'wheat_area': wheat_area, 'nov16': nov16, 'dec2': dec2, 'dec18': dec18, 'feb18': feb18, 'march5': march5, 'march21': march21, 'april6': april6, 'april22': april22})
+            data={'Area': Area, 'Nitrogen': Nitrogen, 'Phosphorus': Phosphorus, 'Pottasium': Pottasium,
+                  'pH': pH, 'NDVI': NDVI, 'maxtemp': maxtemp, 'mintemp': mintemp, 'avgtemp': avgtemp, 'relativehumidity': relativehumidity, 'dewpoints': dewpoints, 'minwindspeed': minwindspeed,
+                  'maxwindspeed': maxwindspeed, 'cloudcoverage': cloudcoverage
+                  })
         if serializers.is_valid(raise_exception=True):
-            df_dict = {'18 febs': [feb18], '5 marchs': [march5], '21 marchs': [march21], '6 aprils': [april6], '22aprils': [
-                april22], '16 novs': [nov16], '2decs': [dec2], '18 decs': [dec18], 'WHEAT AREA (1000 ha)': [wheat_area]}
+            df_dict = {"Area (Hectres)": [float(Area)], "Nitrogen": [int(Nitrogen)], "Phosphorus": [int(Phosphorus)], "Pottasium": [int(Pottasium)], "pH": [int(pH)], "NDVI": [float(NDVI)], "maxtemp": [float(maxtemp)], "mintemp": [float(
+                mintemp)], "avgtemp": [float(avgtemp)], "relativehumidity": [float(relativehumidity)], "dewpoints": [float(dewpoints)], "minwindspeed": [float(minwindspeed)], "maxwindspeed": [float(maxwindspeed)], "cloudcoverage": [float(cloudcoverage)]}
 
-            user_input = pd.DataFrame(df_dict, index=[0])
+            user_input = pd.DataFrame(df_dict)
             model = pickle.load(
                 open('healthanalysis/rf_trained_model.pkl', 'rb'))
             # Make a Prediction on Unseen Data

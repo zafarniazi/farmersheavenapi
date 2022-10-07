@@ -15,7 +15,6 @@ class BlogList(APIView):
     """
     List all blogs, or create a new blog.
     """
-
     def get(self, request, format=None):
         blogs = Blog.objects.all()
         serializer = BlogSerializer(blogs, many=True)
