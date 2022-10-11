@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 
 
@@ -13,3 +12,7 @@ class Contactus(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Messages"
+        verbose_name_plural = "Message"
