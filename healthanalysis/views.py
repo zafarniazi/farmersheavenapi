@@ -203,33 +203,23 @@ class HealthAnalysisDetail(APIView):
 class YieldPredictionView(APIView):
     def post(self, request, format=None):
 
-        Area = request.data['Area']
-        Nitrogen = request.data['Nitrogen']
-        Phosphorus = request.data['Phosphorus']
-        Pottasium = request.data['Pottasium']
-        pH = request.data['pH']
-        NDVI = request.data['NDVI']
-        maxtemp = request.data['maxtemp']
-        mintemp = request.data['mintemp']
-        avgtemp = request.data['avgtemp']
-        relativehumidity = request.data['relativehumidity']
-        dewpoints = request.data['dewpoints']
-        minwindspeed = request.data['minwindspeed']
-        maxwindspeed = request.data['maxwindspeed']
-        cloudcoverage = request.data['cloudcoverage']
-
-
+        rain = request.data['rain']
+        rel_hum = request.data['rel_hum']
+        cloud = request.data['cloud']
+        avg_sun = request.data['avg_sun']
+        temp = request.data['temp']
+        ndvi = request.data['ndvi']
+        hectares = request.data['hectares']
 
         serializers = YieldPredictionSerializer(
-            data={'Area': Area, 'Nitrogen': Nitrogen, 'Phosphorus': Phosphorus, 'Pottasium': Pottasium,
-                  'pH': pH, 'NDVI': NDVI, 'maxtemp': maxtemp, 'mintemp': mintemp, 'avgtemp': avgtemp, 'relativehumidity': relativehumidity, 'dewpoints': dewpoints, 'minwindspeed': minwindspeed,
-                  'maxwindspeed': maxwindspeed, 'cloudcoverage': cloudcoverage
+            data={'rain': rain, 'rel_hum': rel_hum, 'cloud': cloud, 'avg_sun': avg_sun,
+                  'temp': temp, 'ndvi': ndvi, 'hectares': hectares
                   })
         if serializers.is_valid(raise_exception=True):
-            df_dict = {"Area (Hectres)": [float(Area)], "Nitrogen": [int(Nitrogen)], "Phosphorus": [int(Phosphorus)], "Pottasium": [int(Pottasium)], "pH": [int(pH)], "NDVI": [float(NDVI)], "maxtemp": [float(maxtemp)], "mintemp": [float(
-                mintemp)], "avgtemp": [float(avgtemp)], "relativehumidity": [float(relativehumidity)], "dewpoints": [float(dewpoints)], "minwindspeed": [float(minwindspeed)], "maxwindspeed": [float(maxwindspeed)], "cloudcoverage": [float(cloudcoverage)]}
+            df_dct = {'rain': [float(rain)], 'rel_hum': [float(rel_hum)], 'cloud': [float(cloud)], 'avg_sun': [
+                float(avg_sun)], 'temp': [float(temp)], 'ndvi': [float(ndvi)], 'hectares': [float(hectares)]}
 
-            user_input = pd.DataFrame(df_dict)
+            user_input = pd.DataFrame(df_dct)
             model = pickle.load(
                 open('healthanalysis/rf_trained_model.pkl', 'rb'))
             # Make a Prediction on Unseen Data

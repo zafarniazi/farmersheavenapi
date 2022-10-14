@@ -16,15 +16,10 @@ class HealthAnalysisSerializer(serializers.ModelSerializer):
 
 
 class YieldPredictionSerializer(serializers.Serializer):
-    Area = serializers.FloatField()
-    Nitrogen = serializers.IntegerField()
-    Phosphorus = serializers.IntegerField()
-    Pottasium = serializers.IntegerField()
-    pH = serializers.IntegerField()
-    NDVI = serializers.FloatField()
-    maxtemp = serializers.FloatField()
-    relativehumidity = serializers.FloatField()
-    dewpoints = serializers.FloatField()
-    minwindspeed = serializers.FloatField()
-    maxwindspeed = serializers.FloatField()
-    cloudcoverage = serializers.FloatField()
+    rain = serializers.FloatField()
+    rel_hum = serializers.FloatField()
+    cloud = serializers.FloatField()
+    avg_sun = serializers.FloatField()
+    temp = serializers.FloatField()
+    ndvi = serializers.FloatField()
+    hectares = serializers.FloatField()
