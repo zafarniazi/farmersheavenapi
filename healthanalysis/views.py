@@ -34,7 +34,9 @@ from sklearn.svm import LinearSVR
 from sklearn.linear_model import Lasso
 from sklearn.linear_model import SGDRegressor
 from sklearn.metrics import mean_squared_error
-
+import json
+from rest_framework.decorators import api_view, throttle_classes
+from rest_framework.throttling import UserRateThrottle
 
 class HealthAnalysisList(APIView):
 
@@ -226,3 +228,11 @@ class YieldPredictionView(APIView):
             predicted_wheat_yield = model.predict(user_input)
             return Response(predicted_wheat_yield, status=200)
         return Response(serializers.errors, status=staus.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def detail_view(request):
+    responses = requests.get(
+        "https://api.openweathermap.org/data/2.5/weather?lat=23.6850&lon=90.3563&appid=cedc16bcdd82ebc3aa450ed91f352c2f")
+    json_data = json.loads(responses.text)
+    return Response(json_data)
