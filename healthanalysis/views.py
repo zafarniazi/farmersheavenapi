@@ -236,3 +236,11 @@ def detail_view(request):
         "https://api.openweathermap.org/data/2.5/weather?lat=23.6850&lon=90.3563&appid=cedc16bcdd82ebc3aa450ed91f352c2f")
     json_data = json.loads(responses.text)
     return Response(json_data)
+
+
+@api_view(['GET'])
+def getfiveday_view(request):
+    responses = requests.get(
+        'http://api.openweathermap.org/data/2.5/forecast?lat=23.6850&lon=90.3563&appid=cedc16bcdd82ebc3aa450ed91f352c2f')
+    json_data = json.loads(responses.text)
+    return Response(json_data)
