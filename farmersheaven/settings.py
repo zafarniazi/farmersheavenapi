@@ -12,8 +12,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-kmzoe!wb*vd35ki5mw5sc7rvq@*64_sxil4m+=$l0l))o1bvzb'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = ['farmersapi.heroku.com']
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
